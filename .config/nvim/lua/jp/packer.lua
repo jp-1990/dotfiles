@@ -11,7 +11,7 @@ return require('packer').startup(function(use)
         'nvim-telescope/telescope.nvim', tag = '0.1.x',
         requires = { 
             {'nvim-lua/plenary.nvim'},
-            {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
+            { 'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
         }
     }
 
@@ -20,7 +20,15 @@ return require('packer').startup(function(use)
     use {'nvim-treesitter/nvim-treesitter',
     requires = {'nvim-treesitter/nvim-treesitter-textobjects'},
     run = ':TSUpdate'
+
+
 }
+  use({
+    "stevearc/conform.nvim",
+    config = function()
+      require("conform").setup()
+    end,
+  })
 
 use('nvim-treesitter/playground')
 

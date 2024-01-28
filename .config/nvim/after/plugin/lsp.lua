@@ -1,5 +1,19 @@
 local lsp_zero = require("lsp-zero")
 
+require("conform").setup({
+  formatters_by_ft = {
+    lua = { "stylua" },
+    -- Use a sub-list to run only the first available formatter
+    javascript = { { "prettierd", "prettier" } },
+    typescript = { { "prettierd", "prettier" } },
+  },
+  format_on_save = {
+    -- These options will be passed to conform.format()
+    timeout_ms = 500,
+    lsp_fallback = true,
+  },
+})
+
 lsp_zero.on_attach(function(client, bufnr)
 	-- see :help lsp-zero-keybindings
 	-- to learn the available actions
@@ -35,46 +49,38 @@ lsp_zero.on_attach(function(client, bufnr)
 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 	end, "[W]orkspace [L]ist Folders")
 
-	-- Create a command `:Format` local to the LSP buffer
-	vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
-		vim.lsp.buf.format()
-	end, { desc = "Format current buffer with LSP" })
-
-	vim.api.nvim_create_autocmd("BufWritePre", {
-		buffer = bufnr,
-		command = "EslintFixAll",
-	})
-
-	vim.api.nvim_create_autocmd("BufWritePre", {
-		buffer = bufnr,
-		command = "Format",
-	})
 end)
 
-require("lspconfig").tsserver.setup({})
-require("lspconfig").rust_analyzer.setup({})
-require("lspconfig").eslint.setup({})
-require("lspconfig").vls.setup({})
-require("lspconfig").volar.setup({})
-
-require("mason").setup({})
-require("mason-lspconfig").setup({
-	ensure_installed = { "tsserver", "rust_analyzer", "eslint", "vls", "volar" },
-	handlers = {
-		lsp_zero.default_setup,
-	},
+require('mason').setup({})
+require('mason-lspconfig').setup({
+  ensure_installed = {'tsserver', 'rust_analyzer', 'eslint'},
+  handlers = {
+    lsp_zero.default_setup,
+    lua_ls = function()
+      local lua_opts = lsp_zero.nvim_lua_ls()
+      require('lspconfig').lua_ls.setup(lua_opts)
+    end,
+  }
 })
 
-lsp_zero.setup()
-
-local cmp = require("cmp")
+local cmp = require('cmp')
+local cmp_select = {behavior = cmp.SelectBehavior.Select}
 
 cmp.setup({
-	preselect = "item",
-	completion = {
-		completeopt = "menu,menuone,noinsert",
-	},
-	mapping = cmp.mapping.preset.insert({
-		["<CR>"] = cmp.mapping.confirm({ select = false }),
-	}),
+  sources = {
+    {name = 'path'},
+    {name = 'nvim_lsp'},
+    {name = 'nvim_lua'},
+    {name = 'luasnip', keyword_length = 2},
+    {name = 'buffer', keyword_length = 3},
+  },
+  formatting = lsp_zero.cmp_format(),
+  mapping = cmp.mapping.preset.insert({
+	  ["<CR>"] = cmp.mapping.confirm({ select = false }),
+  }),
+  preselect = "item",
+  completion = {
+    completeopt = "menu,menuone,noinsert",
+  },
 })
+
