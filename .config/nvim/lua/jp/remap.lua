@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>ex", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
 
 -- movement
 vim.keymap.set("n", "<S-h>", ":bprevious<CR>")
@@ -13,7 +13,15 @@ vim.keymap.set("n", "<leader>l", "<C-w>l")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
-vim.keymap.set("n", "<leader>v", ":vsplit<CR>")
+vim.keymap.set("v", "<", function()
+	vim.cmd("normal! <")
+	vim.cmd("normal! gv")
+end)
+
+vim.keymap.set("v", ">", function()
+	vim.cmd("normal! >")
+	vim.cmd("normal! gv")
+end)
 
 -- save/quit
 vim.keymap.set("n", "<leader>w", ":w!<CR>")
@@ -25,20 +33,40 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
+vim.keymap.set("n", "{", "{zz")
+vim.keymap.set("n", "}", "}zz")
+vim.keymap.set("n", "<C-i>", "<C-i>zz")
+vim.keymap.set("n", "<C-o>", "<C-o>zz")
+vim.keymap.set("n", "%", "%zz")
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>dh', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', '<leader>dl', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+vim.keymap.set("n", "[d", function()
+	vim.diagnostic.goto_prev()
+	vim.api.nvim_feedkeys("zz", "n", false)
+end)
 
--- blackhole paste
+vim.keymap.set("n", "]d", function()
+	vim.diagnostic.goto_next()
+	vim.api.nvim_feedkeys("zz", "n", false)
+end)
+
+vim.keymap.set("n", "[e", function()
+	vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+	vim.api.nvim_feedkeys("zz", "n", false)
+end)
+
+vim.keymap.set("n", "]e", function()
+	vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+	vim.api.nvim_feedkeys("zz", "n", false)
+end)
+
+-- blackhole paste/delete
 vim.keymap.set("x", "<leader>p", [["_dP]])
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
 -- system clipboard yank
-vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
-
--- what does this do?
--- vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 
 -- other
 vim.keymap.set("i", "<C-c>", "<Esc>")
