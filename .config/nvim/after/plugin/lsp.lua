@@ -1,5 +1,8 @@
 local lsp_zero = require("lsp-zero")
 
+-- packer rollbacks:
+-- https://dev.to/vonheikemen/packernvim-how-to-recover-from-a-bad-plugin-update-2813
+
 require("conform").setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
@@ -15,6 +18,7 @@ require("conform").setup({
 		yaml = { { "prettierd", "prettier" } },
 		markdown = { { "prettierd", "prettier" } },
 		graphql = { { "prettierd", "prettier" } },
+		vue = { { "prettierd", "prettier" } },
 	},
 	format_on_save = {
 		-- These options will be passed to conform.format()
@@ -60,7 +64,18 @@ end)
 
 require("mason").setup({})
 require("mason-lspconfig").setup({
-	ensure_installed = { "tsserver", "rust_analyzer", "eslint" },
+	ensure_installed = {
+		"ts_ls",
+		"volar",
+	},
+	handlers = {
+		nd,
+	},
+})
+
+require("mason").setup({})
+require("mason-lspconfig").setup({
+	ensure_installed = { "ts_ls", "volar", "rust_analyzer", "eslint" },
 	handlers = {
 		lsp_zero.default_setup,
 		lua_ls = function()
@@ -87,6 +102,39 @@ require("mason-lspconfig").setup({
 							enable = true,
 						},
 					},
+				},
+			})
+		end,
+
+		-- vue setup
+		-- https://lsp-zero.netlify.app/blog/configure-volar-v2.html
+		volar = function()
+			require("lspconfig").volar.setup({})
+		end,
+
+		ts_ls = function()
+			local vue_typescript_plugin = require("mason-registry")
+				.get_package("vue-language-server")
+				:get_install_path() .. "/node_modules/@vue/language-server" .. "/node_modules/@vue/typescript-plugin"
+
+			require("lspconfig").ts_ls.setup({
+				init_options = {
+					plugins = {
+						{
+							name = "@vue/typescript-plugin",
+							location = vue_typescript_plugin,
+							languages = { "javascript", "typescript", "vue" },
+						},
+					},
+				},
+				filetypes = {
+					"javascript",
+					"javascriptreact",
+					"javascript.jsx",
+					"typescript",
+					"typescriptreact",
+					"typescript.tsx",
+					"vue",
 				},
 			})
 		end,
