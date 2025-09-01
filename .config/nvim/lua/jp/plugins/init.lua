@@ -406,6 +406,12 @@ return {
 			},
 		},
 	},
+	{ -- AI Assistant
+		"supermaven-inc/supermaven-nvim",
+		config = function()
+			require("supermaven-nvim").setup({})
+		end,
+	},
 	{ -- Autocompletion
 		"saghen/blink.cmp",
 		event = "VimEnter",
@@ -454,6 +460,7 @@ return {
 				-- you will need to read `:help ins-completion`
 				-- See :h blink-cmp-config-keymap for defining your own keymap
 				preset = "default",
+				["<CR>"] = { "accept", "fallback" },
 			},
 			appearance = {
 				nerd_font_variant = "mono",
@@ -470,8 +477,14 @@ return {
 			},
 			sources = {
 				default = { "lsp", "path", "snippets", "lazydev" },
+				completion = { endabledProviders = { "supermaven" } },
 				providers = {
 					lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
+					supermaven = {
+						name = "supermaven",
+						module = "blink.compat.source",
+						score_offset = 3,
+					},
 				},
 			},
 			snippets = { preset = "luasnip" },
