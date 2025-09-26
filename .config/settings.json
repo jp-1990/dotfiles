@@ -1,0 +1,187 @@
+{
+  "workbench.colorTheme": "Tokyo Night",
+  "git.enabled": true,
+  "git.path": "C:\\Program Files\\Git\\cmd\\git.exe",
+  "workbench.panel.defaultLocation": "right",
+  "terminal.integrated.defaultProfile.windows": "Command Prompt",
+  "workbench.iconTheme": "vs-seti",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnPaste": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "[rust]": {
+    "editor.defaultFormatter": "rust-lang.rust-analyzer", // Makes the magic
+    "editor.formatOnSave": true // Optional
+  },
+  "workbench.startupEditor": "none",
+  "editor.lineNumbers": "relative",
+  "vim.smartRelativeLine": true,
+  "html.completion.attributeDefaultValue": "singlequotes",
+  "typescript.preferences.quoteStyle": "single",
+  "javascript.preferences.quoteStyle": "single",
+  "prettier.jsxSingleQuote": true,
+  "prettier.singleQuote": true,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "css.validate": false,
+  "editor.inlineSuggest.enabled": true,
+  "editor.formatOnSave": true,
+  "editor.cursorSurroundingLines": 14,
+  "editor.cursorSurroundingLinesStyle": "all",
+  "editor.fontSize": 12,
+  // find-it-faster
+  "find-it-faster.general.batTheme": "DarkNeon",
+
+  // VIM
+  "vim.leader": "<Space>",
+  "vim.normalModeKeyBindingsNonRecursive": [
+    // switch b/w buffers
+    { "before": ["<S-h>"], "commands": [":bprevious"] },
+    { "before": ["<S-l>"], "commands": [":bnext"] },
+
+    // splits
+    { "before": ["leader", "v"], "commands": [":vsplit"] },
+    { "before": ["leader", "s"], "commands": [":split"] },
+
+    // panes
+    {
+      "before": ["leader", "h"],
+      "commands": ["workbench.action.focusLeftGroup"]
+    },
+    {
+      "before": ["leader", "j"],
+      "commands": ["workbench.action.focusBelowGroup"]
+    },
+    {
+      "before": ["leader", "k"],
+      "commands": ["workbench.action.focusAboveGroup"]
+    },
+    {
+      "before": ["leader", "l"],
+      "commands": ["workbench.action.focusRightGroup"]
+    },
+
+    // other
+    { "before": ["leader", "w"], "commands": [":w!"] },
+    { "before": ["leader", "q"], "commands": [":q!"] },
+    { "before": ["leader", "x"], "commands": [":x!"] },
+    {
+      "before": ["[", "d"],
+      "commands": ["editor.action.marker.prev"]
+    },
+    {
+      "before": ["]", "d"],
+      "commands": ["editor.action.marker.next"]
+    },
+    {
+      "before": ["leader", "c", "a"],
+      "commands": ["editor.action.quickFix"]
+    },
+    {
+      "before": ["leader", "K"],
+      "commands": ["editor.action.showDefinitionPreviewHover"]
+    },
+
+    // searching
+    {
+      "before": [":"],
+      "commands": ["workbench.action.showCommands"],
+      "silent": true
+    },
+    {
+      "before": ["leader", "f", "f"],
+      "commands": ["workbench.action.quickOpen"]
+    },
+    {
+      "before": ["leader", "f", "s"],
+      "commands": ["workbench.action.showAllSymbols"]
+    },
+    {
+      "before": ["leader", "f", "s"],
+      "commands": ["workbench.action.gotoSymbol"]
+    },
+    {
+      "before": ["leader", "f", "d"],
+      "commands": ["workbench.action.problems.focus"]
+    },
+
+    // center screen
+    { "before": ["<C-d>"], "after": ["<C-d>", "z", "z"] },
+    { "before": ["<C-u>"], "after": ["<C-u>", "z", "z"] },
+    { "before": ["n"], "after": ["n", "z", "z"] },
+    { "before": ["N"], "after": ["N", "z", "z"] },
+
+    // keep cursor at start of line when appending lines
+    { "before": ["J"], "after": ["m", "z", "J", "`", "z"] },
+
+    // yank/paste to system
+    { "before": ["leader", "s", "y"], "after": ["\"", "*", "y"] },
+    { "before": ["leader", "s", "p"], "after": ["\"", "*", "p"] },
+
+    // search word under cursor
+    {
+      "before": ["leader", "g", "w"],
+      "after": [":%s/", "<<C-r>", "<C-w>>", "/", "<C-r>", "<C-w>", "/gI"]
+    },
+
+    // netrw
+    {
+      "before": ["leader", "e"],
+      "commands": ["vsnetrw.open"]
+    },
+
+    // find-it-faster
+    {
+      "before": ["leader", "f", "f"],
+      "commands": ["find-it-faster.findFiles"]
+    },
+    {
+      "before": ["leader", "f", "g"],
+      "commands": ["find-it-faster.findWithinFiles"]
+    },
+    {
+      "before": ["leader", "f", "r"],
+      "commands": ["find-it-faster.resumeSearch"]
+    }
+  ],
+  "vim.visualModeKeyBindings": [
+    // Stay in visual mode while indenting
+    { "before": ["<"], "commands": ["editor.action.outdentLines"] },
+    { "before": [">"], "commands": ["editor.action.indentLines"] },
+    // Move selected lines while staying in visual mode
+    { "before": ["J"], "commands": ["editor.action.moveLinesDownAction"] },
+    { "before": ["K"], "commands": ["editor.action.moveLinesUpAction"] },
+    // toggle comment selection
+    { "before": ["leader", "c"], "commands": ["editor.action.commentLine"] },
+    // paste target to black hole register before paste
+    { "before": ["leader", "p"], "after": ["\"", "_", "d", "P"] },
+    // yank/paste to system
+    { "before": ["leader", "s", "y"], "after": ["\"", "*", "y"] },
+    { "before": ["leader", "s", "p"], "after": ["\"", "*", "p"] }
+  ],
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "window.zoomLevel": 1,
+  "workbench.editor.showTabs": "single",
+  "workbench.editor.editorActionsLocation": "titleBar",
+  "editor.minimap.enabled": false,
+  "breadcrumbs.enabled": false,
+  "workbench.activityBar.location": "top",
+  "editor.renderWhitespace": "none",
+  "workbench.editor.enablePreview": false,
+  "problems.autoReveal": false,
+  "workbench.list.openMode": "doubleClick",
+  "workbench.panel.opensMaximized": "always",
+  "workbench.editor.revealIfOpen": true
+}
