@@ -17,12 +17,15 @@ return {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
+		lazy = false,
 		build = ":TSUpdate",
-		auto_install = true,
-		highlight = { enable = true },
+		branch = "master",
 		config = function()
 			local treesitter = require("nvim-treesitter.configs")
 			treesitter.setup({
+				highlight = { enable = true },
+				auto_install = true,
+				sync_install = false,
 				ensure_installed = {
 					"c",
 					"lua",
@@ -37,6 +40,8 @@ return {
 					"javascript",
 					"typescript",
 					"tsx",
+					"go",
+					"html",
 				},
 			})
 		end,
@@ -192,13 +197,14 @@ return {
 			},
 		},
 	},
-	{
-		"pmizio/typescript-tools.nvim",
-		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-		opts = {},
-	},
+	-- {
+	-- 	"pmizio/typescript-tools.nvim",
+	-- 	dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+	-- 	opts = {},
+	-- },
 	{
 		"neovim/nvim-lspconfig",
+		lazy = false,
 		dependencies = {
 			{ "mason-org/mason.nvim", opts = {} },
 			"mason-org/mason-lspconfig.nvim",
@@ -335,6 +341,7 @@ return {
 			local servers = {
 				rust_analyzer = {},
 				eslint = {},
+				gopls = {},
 				lua_ls = {
 					settings = {
 						Lua = {
@@ -403,6 +410,7 @@ return {
 				markdown = { "prettierd", "prettier", stop_after_first = true },
 				graphql = { "prettierd", "prettier", stop_after_first = true },
 				vue = { "prettierd", "prettier", stop_after_first = true },
+				go = { "gofumpt", "goimports" },
 			},
 		},
 	},
