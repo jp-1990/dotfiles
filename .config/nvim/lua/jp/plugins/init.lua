@@ -438,24 +438,24 @@ return {
 					end
 					return "make install_jsregexp"
 				end)(),
-				dependencies = {
-					-- TODO: not sure we want this - lots of shit in here
-					-- TODO: make custom snippets
-					-- `friendly-snippets` contains a variety of premade snippets.
-					--    See the README about individual language/framework/plugin snippets:
-					--    https://github.com/rafamadriz/friendly-snippets
-					{
-						"rafamadriz/friendly-snippets",
-						config = function()
-							require("luasnip").filetype_extend("typescript", { "javascript" })
-							require("luasnip").filetype_extend("javascriptreact", { "javascript" })
-							require("luasnip").filetype_extend("typescriptreact", { "typescript" })
-							require("luasnip").filetype_extend("typescriptreact", { "javascript" })
-							require("luasnip").filetype_extend("rust", { "rustdoc" })
-							require("luasnip.loaders.from_vscode").lazy_load()
-						end,
-					},
-				},
+				-- dependencies = {
+				-- 	-- TODO: not sure we want this - lots of shit in here
+				-- 	-- TODO: make custom snippets
+				-- 	-- `friendly-snippets` contains a variety of premade snippets.
+				-- 	--    See the README about individual language/framework/plugin snippets:
+				-- 	--    https://github.com/rafamadriz/friendly-snippets
+				-- 	{
+				-- 		"rafamadriz/friendly-snippets",
+				-- 		config = function()
+				-- 			require("luasnip").filetype_extend("typescript", { "javascript" })
+				-- 			require("luasnip").filetype_extend("javascriptreact", { "javascript" })
+				-- 			require("luasnip").filetype_extend("typescriptreact", { "typescript" })
+				-- 			require("luasnip").filetype_extend("typescriptreact", { "javascript" })
+				-- 			require("luasnip").filetype_extend("rust", { "rustdoc" })
+				-- 			require("luasnip.loaders.from_vscode").lazy_load()
+				-- 		end,
+				-- 	},
+				-- },
 				opts = {},
 			},
 			"folke/lazydev.nvim",
